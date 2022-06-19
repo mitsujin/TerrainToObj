@@ -17,4 +17,10 @@ namespace TerrainToObj
         }
         return -1;
     }
+
+    bool TriPriorityQueue::Remove(int triangle)
+    {
+        // Don't care about error
+        return m_queue.remove({triangle, 0});
+    }
 }

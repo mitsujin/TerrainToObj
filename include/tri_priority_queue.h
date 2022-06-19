@@ -12,6 +12,8 @@ namespace TerrainToObj
         int Pop();
         int Size() const { return m_queue.size(); }
 
+        bool Remove(int triangle);
+
     private:
         struct TriWithError
         {
@@ -24,7 +26,25 @@ namespace TerrainToObj
             }
         };
 
-        std::priority_queue<TriWithError> m_queue;
+        class PriorityQueueInternal : public std::priority_queue<TriWithError, std::vector<TriWithError>>
+        {
+        public:
+            bool remove(const TriWithError& e)
+            {
+                auto it = std::find_if(this->c.begin(), this->c.end(), [&](auto candidate) {
+                    return e.Triangle == candidate.Triangle; });
+
+                if (it != this->c.end())
+                {
+                    this->c.erase(it);
+                    std::make_heap(this->c.begin(), this->c.end(), this->comp);
+                    return true;
+                }
+                return false;
+            }
+        };
+
+        PriorityQueueInternal m_queue;
     };
 }
 
