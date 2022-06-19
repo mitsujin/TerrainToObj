@@ -28,4 +28,15 @@ namespace TerrainToObj
         }
     }
 
+    std::tuple<int, float> HeightMap::FindTriangle(const Int2& p0, 
+        const Int2& p1, const Int2& p2)
+    {
+        const auto edge = [](
+            const auto& a, const auto& b, const auto& c)
+        {
+            return (b.x() - c.x()) * (a.y() - c.y()) - (b.y() - c.y()) * (a.x() - c.x());
+        };
+
+
+    }
 }

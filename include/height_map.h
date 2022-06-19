@@ -24,6 +24,9 @@ namespace TerrainToObj
         float GetWidth() const { return m_width; }
         float GetHeight() const { return m_height; }
 
+        std::tuple<int, float> FindTriangle(const Int2& p0, 
+            const Int2& p1, const Int2& p2);
+
     private:
 
         std::vector<float> m_data; // heightmap data

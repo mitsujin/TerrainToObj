@@ -6,6 +6,8 @@
 #include <vec2.h>
 #include <vec3.h>
 
+#include "tri_priority_queue.h"
+
 namespace TerrainToObj
 {
     class HeightMap;
@@ -24,6 +26,9 @@ namespace TerrainToObj
         Mesh GetMesh(const Float3& meshScale);
 
     private:
+        int TriCount() const { return m_queue.Size(); }
+        void Update();
+
         std::unique_ptr<HeightMap> m_heightmap;
         float m_maxError = 0.0f;
         int m_maxTriangles = 1000;
@@ -31,9 +36,22 @@ namespace TerrainToObj
 
         int AddPoint(const Int2& point);
         int AddTriangle(int a, int b, int c);
+        int SetTriangle(int index, int a, int b, int c);
+
+        void ProcessPending();
+
+
+        inline void AddToPending(int triangleFirstIndex)
+        {
+            const int t = triangleFirstIndex / 3;
+            m_pendingTriangles.push_back(t);
+        }
 
         std::vector<Int2> m_points;
         std::vector<int> m_triangles;
+
+        std::vector<int> m_pendingTriangles; // To be processed
+        TriPriorityQueue m_queue;
     };
 }
 

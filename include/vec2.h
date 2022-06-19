@@ -4,6 +4,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <iostream>
+#include <tuple>
 
 namespace TerrainToObj
 {
@@ -27,6 +28,11 @@ namespace TerrainToObj
         inline Vec2<T> operator+(const Vec2& o) const
         {
             return Vec2(m_x + o.m_x, m_y + o.m_y);
+        }
+
+        inline bool operator < (const Vec2<T> o) const
+        {
+            return std::tie(m_x, m_y) < std::tie(o.m_x, o.m_y);
         }
 
         inline Vec2& operator += (const Vec2& o)

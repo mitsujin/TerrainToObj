@@ -27,6 +27,16 @@ namespace TerrainToObj
         // Add the intial triangles
         const int t0 = AddTriangle(p3, p0, p2);
         AddTriangle(p0, p3, p1);
+
+        while (TriCount() < m_maxTriangles)
+        {
+            Update();
+        }
+    }
+
+    void MeshGenerator::Update()
+    {
+        // Get the triangle with the highest error
     }
 
     Mesh MeshGenerator::GetMesh(const Float3& meshScale)
@@ -62,6 +72,17 @@ namespace TerrainToObj
         return i;
     }
 
+    int MeshGenerator::SetTriangle(int index, int a, int b, int c)
+    {
+        m_triangles[index + 0] = a;
+        m_triangles[index + 1] = b;
+        m_triangles[index + 2] = c;
+
+        AddToPending(index);
+
+        return index;
+    }
+
     int MeshGenerator::AddTriangle(int a, int b, int c)
     {
         const int index = m_triangles.size();
@@ -69,6 +90,24 @@ namespace TerrainToObj
         m_triangles.push_back(b);
         m_triangles.push_back(c);
 
+        AddToPending(index);
+
         return index;
+    }
+
+    void MeshGenerator::ProcessPending()
+    {
+        for (auto t : m_pendingTriangles)
+        {
+            // compare this triangle with the heighmap to determine error
+            auto [candidate, error] = m_heightmap->FindTriangle(
+                m_points[m_triangles[t*3+0]],
+                m_points[m_triangles[t*3+1]],
+                m_points[m_triangles[t*3+2]]);
+
+            m_queue.Push(candidate, error);
+        }
+
+        m_pendingTriangles.clear();
     }
 }
