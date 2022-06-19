@@ -35,6 +35,11 @@ namespace TerrainToObj
             return std::tie(m_x, m_y) < std::tie(o.m_x, o.m_y);
         }
 
+        inline bool operator == (const Vec2<T> o) const
+        {
+            return std::tie(m_x, m_y) == std::tie(m_x, m_y);
+        }
+
         inline Vec2& operator += (const Vec2& o)
         {
             m_x += o.m_x;

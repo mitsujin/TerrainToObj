@@ -16,7 +16,7 @@ namespace TerrainToObj
             return m_data[y * m_width + x];
         }
 
-        inline float HeightAt(const Float2& p) const 
+        inline float HeightAt(const Int2& p) const 
         {
             return m_data[p.y() * m_width + p.x()];
         }
@@ -24,7 +24,7 @@ namespace TerrainToObj
         float GetWidth() const { return m_width; }
         float GetHeight() const { return m_height; }
 
-        std::tuple<int, float> FindTriangle(const Int2& p0, 
+        std::tuple<Int2, float> FindTriangle(const Int2& p0, 
             const Int2& p1, const Int2& p2);
 
     private:

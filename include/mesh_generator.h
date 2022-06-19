@@ -35,10 +35,11 @@ namespace TerrainToObj
         int maxPoints = 1000;
 
         int AddPoint(const Int2& point);
-        int AddTriangle(int a, int b, int c);
-        int SetTriangle(int index, int a, int b, int c);
+        int AddTriangle(int a, int b, int c, int ab, int bc, int ca);
+        int SetTriangle(int index, int a, int b, int c, int ab, int bc, int ca);
 
         void ProcessPending();
+        void Validate(int a);
 
 
         inline void AddToPending(int triangleFirstIndex)
@@ -49,6 +50,9 @@ namespace TerrainToObj
 
         std::vector<Int2> m_points;
         std::vector<int> m_triangles;
+        std::vector<int> m_halfEdges;
+
+        std::vector<Int2> m_candidatePoints;
 
         std::vector<int> m_pendingTriangles; // To be processed
         TriPriorityQueue m_queue;
