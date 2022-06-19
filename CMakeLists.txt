@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 
-include_directories("/usr/local/include" "/usr/local/opt/llvm/include")
+include_directories("/usr/local/include" "/usr/local/opt/llvm/include" "lib/stb")
 link_directories("/usr/local/lib" "/usr/local/opt/llvm/lib")
 
 get_cmake_property(_variableNames VARIABLES)
@@ -21,6 +21,7 @@ endforeach()
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
 add_subdirectory(src)
+add_subdirectory(test)
 add_subdirectory(lib/googletest)
 
 

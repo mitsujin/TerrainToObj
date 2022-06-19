@@ -148,6 +148,7 @@ namespace TerrainToObj
 
     using Float2 = Vec2<float>;
     using Double2 = Vec2<double>;
+    using Int2 = Vec2<int>;
 }
 
 #endif /* VEC2_H */
