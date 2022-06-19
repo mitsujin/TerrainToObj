@@ -37,7 +37,7 @@ namespace TerrainToObj
 
         inline bool operator == (const Vec2<T> o) const
         {
-            return std::tie(m_x, m_y) == std::tie(m_x, m_y);
+            return std::tie(m_x, m_y) == std::tie(o.m_x, o.m_y);
         }
 
         inline Vec2& operator += (const Vec2& o)
@@ -155,6 +155,20 @@ namespace TerrainToObj
     T Dot(const Vec2<T>& a, const Vec2<T>& b)
     {
         return a.m_x * b.m_x + a.m_y*b.m_y;
+    }
+
+    template <typename T>
+    Vec2<T> Min(const Vec2<T>& a, const Vec2<T>& b)
+    {
+        return Vec2<T>(a.x() < b.x() ? a.x() : b.x(),
+            a.y() < b.y() ? a.y() : b.y());
+    }
+
+    template <typename T>
+    Vec2<T> Max(const Vec2<T>& a, const Vec2<T>& b)
+    {
+        return Vec2<T>(a.x() > b.x() ? a.x() : b.x(),
+            a.y() > b.y() ? a.y() : b.y());
     }
 
     using Float2 = Vec2<float>;

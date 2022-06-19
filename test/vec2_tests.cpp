@@ -33,8 +33,7 @@ namespace TerrainToObj
         TypeParam t = 10.0;
         auto c = a * t;
 
-        ASSERT_FLOAT_EQ(10.0, c.x());    
-        ASSERT_FLOAT_EQ(20.0, c.y());    
+        ASSERT_FLOAT_EQ(10.0, c.x());    ASSERT_FLOAT_EQ(20.0, c.y());    
 
         c = t * a;
         ASSERT_FLOAT_EQ(10.0, c.x());    
@@ -46,9 +45,19 @@ namespace TerrainToObj
         Int2 a(1, 2);
         Int2 b(1, 3);
 
-        auto c = std::min(a, b);
+        auto c = Min(a, b);
         ASSERT_EQ(1, c.x());
         ASSERT_EQ(2, c.y());
+    }
+
+    TEST(Vec2Tests, TestMinCombined)
+    {
+        Int2 a(1, 0);
+        Int2 b(0, 3);
+
+        auto c = Min(a, b);
+        ASSERT_EQ(0, c.x());
+        ASSERT_EQ(0, c.y());
     }
 
     TEST(Vec2Tests, TestMax)
@@ -56,18 +65,18 @@ namespace TerrainToObj
         Int2 a(1, 2);
         Int2 b(1, 3);
 
-        auto c = std::max(a, b);
+        auto c = Max(a, b);
         ASSERT_EQ(1, c.x());
         ASSERT_EQ(3, c.y());
     }
 
     TEST(Vec2Tests, TestMaxCombined)
     {
-        Int2 a(2, 3);
+        Int2 a(4, 3);
         Int2 b(3, 4);
 
-        auto c = std::max(a, b);
-        ASSERT_EQ(3, c.x());
+        auto c = Max(a, b);
+        ASSERT_EQ(4, c.x());
         ASSERT_EQ(4, c.y());
     }
 }

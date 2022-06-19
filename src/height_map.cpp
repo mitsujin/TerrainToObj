@@ -37,8 +37,8 @@ namespace TerrainToObj
             return (b.x() - c.x()) * (a.y() - c.y()) - (b.y() - c.y()) * (a.x() - c.x());
         };
 
-        const auto min = std::min(std::min(p0, p1), p2);
-        const auto max = std::max(std::max(p0, p1), p2);
+        const auto min = Min(Min(p0, p1), p2);
+        const auto max = Max(Max(p0, p1), p2);
 
         int w00 = edge(p1, p2, min);
         int w01 = edge(p2, p0, min);

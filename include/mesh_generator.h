@@ -37,9 +37,11 @@ namespace TerrainToObj
         int AddPoint(const Int2& point);
         int AddTriangle(int a, int b, int c, int ab, int bc, int ca);
         int SetTriangle(int index, int a, int b, int c, int ab, int bc, int ca);
+        void LinkEdges(int index, int ab, int bc, int ca);
 
         void ProcessPending();
-        void Validate(int a);
+        void SatisfyDelaunay(int a);
+        void RemoveFromQueue(int t);
 
 
         inline void AddToPending(int triangleFirstIndex)

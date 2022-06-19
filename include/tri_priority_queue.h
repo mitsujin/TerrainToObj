@@ -13,6 +13,10 @@ namespace TerrainToObj
         int Size() const { return m_queue.size(); }
 
         bool Remove(int triangle);
+        float Error() {
+            auto top = m_queue.top();
+            return top.Error;
+        }
 
     private:
         struct TriWithError
