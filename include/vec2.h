@@ -158,14 +158,14 @@ namespace TerrainToObj
     }
 
     template <typename T>
-    Vec2<T> Min(const Vec2<T>& a, const Vec2<T>& b)
+    inline Vec2<T> Min(const Vec2<T>& a, const Vec2<T>& b)
     {
         return Vec2<T>(a.x() < b.x() ? a.x() : b.x(),
             a.y() < b.y() ? a.y() : b.y());
     }
 
     template <typename T>
-    Vec2<T> Max(const Vec2<T>& a, const Vec2<T>& b)
+    inline Vec2<T> Max(const Vec2<T>& a, const Vec2<T>& b)
     {
         return Vec2<T>(a.x() > b.x() ? a.x() : b.x(),
             a.y() > b.y() ? a.y() : b.y());

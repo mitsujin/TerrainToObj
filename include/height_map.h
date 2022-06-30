@@ -11,6 +11,9 @@ namespace TerrainToObj
     public:
         HeightMap(const std::string& file);
 
+        HeightMap(int size, int width);
+        void SetData(int index, const std::string& file);
+
         inline float HeightAt(int x, int y) const
         {
             return m_data[y * m_width + x];
@@ -32,6 +35,10 @@ namespace TerrainToObj
         std::vector<float> m_data; // heightmap data
         int m_width = 0;
         int m_height = 0;
+
+        int m_stride = 0;
+        int m_segmentWidth = 0;
+        int m_segmentSide = 0;
     };
 }
 

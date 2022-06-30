@@ -242,6 +242,11 @@ namespace TerrainToObj
 
     int MeshGenerator::SetTriangle(int index, int a, int b, int c, int ab, int bc, int ca)
     {
+        if (index < 0)
+        {
+            return AddTriangle(a, b, c, ab, bc, ca);
+        }
+
         m_triangles[index + 0] = a;
         m_triangles[index + 1] = b;
         m_triangles[index + 2] = c;
@@ -252,7 +257,6 @@ namespace TerrainToObj
 
         LinkEdges(index, ab, bc, ca);
         AddToPending(index);
-
         return index;
     }
 
@@ -268,6 +272,7 @@ namespace TerrainToObj
         m_halfEdges.push_back(ca);
 
         m_candidatePoints.emplace_back(0,0);
+        m_queue.Add();
 
         LinkEdges(index, ab, bc, ca);
         AddToPending(index);
@@ -312,6 +317,8 @@ namespace TerrainToObj
 
     void MeshGenerator::RemoveFromQueue(int t)
     {
+        //m_queue.Remove(t);
+        //if m
         if (!m_queue.Remove(t))
         {
             const auto it = std::find(m_pendingTriangles.begin(), m_pendingTriangles.end(), t);
@@ -321,5 +328,11 @@ namespace TerrainToObj
                 m_pendingTriangles.pop_back();
             }
         }
+        /*
+        else
+        {
+            m_queue.Remove(t);
+        }
+        */
     }
 }

@@ -41,7 +41,11 @@ namespace TerrainToObj
                 if (it != this->c.end())
                 {
                     this->c.erase(it);
-                    std::make_heap(this->c.begin(), this->c.end(), this->comp);
+
+                    if (it != this->c.begin())
+                    {
+                        std::make_heap(this->c.begin(), this->c.end(), this->comp);
+                    }
                     return true;
                 }
                 return false;

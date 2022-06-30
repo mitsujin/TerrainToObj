@@ -6,6 +6,7 @@ set (SOURCE
     mesh_generator.cpp
     obj_writer.cpp
     tri_priority_queue.cpp
+    priority_queue_custom.cpp
 )
 
 add_executable(${BINARY} ${SOURCE})

@@ -7,6 +7,7 @@
 #include <vec3.h>
 
 #include "tri_priority_queue.h"
+#include "priority_queue_custom.h"
 
 namespace TerrainToObj
 {
@@ -57,7 +58,9 @@ namespace TerrainToObj
         std::vector<Int2> m_candidatePoints;
 
         std::vector<int> m_pendingTriangles; // To be processed
-        TriPriorityQueue m_queue;
+        //TriPriorityQueue m_queue;
+        std::vector<int> m_queueIndices;
+        PriorityQueue m_queue;
     };
 }
 

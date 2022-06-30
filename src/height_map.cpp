@@ -28,6 +28,54 @@ namespace TerrainToObj
         }
     }
 
+    HeightMap::HeightMap(int size, int width)
+    {
+        m_segmentWidth = width;
+        m_segmentSide = std::max(1, (int)sqrt(size));
+        m_width = m_segmentSide * width;
+        m_height = m_segmentSide * width;
+        m_stride = m_segmentWidth * m_segmentWidth * m_segmentSide;
+        m_data.resize(size * width * width);
+    }
+
+    void HeightMap::SetData(int index, const std::string& file)
+    {
+        std::vector<float> dataF;
+        int c = 0;
+        int width;
+        int height;
+        auto* data = stbi_load_16(file.c_str(), &width, &height,&c, 1);
+        if (data)
+        {
+            std::cout << "Loaded: " << index << std::endl;
+            const int dimensions = width * height;
+            const float m = 1.0f / 65535.0f;
+            dataF.resize(dimensions);
+            for (int i = 0; i < dimensions; i++) {
+                dataF[i] = data[i] * m;
+            }
+            free(data);
+        }
+        else
+        {
+            std::cout << data << std::endl;
+            std::cerr << "Failed to load image" << std::endl;
+        }
+
+        int x = index % m_segmentSide;
+        int y = index / m_segmentSide;
+
+        int startIndex = m_stride * y + x * m_segmentWidth;
+        int lineStride = m_segmentWidth * m_segmentSide;
+
+        for (int z = 0; z < m_segmentWidth; z++)
+        {
+            int destIndex = startIndex + z * lineStride;
+            int sourceIndex = z * m_segmentWidth;
+            memcpy(&m_data[destIndex], &dataF[sourceIndex], sizeof(float) * m_segmentWidth);
+        }
+    }
+
     std::tuple<Int2, float> HeightMap::FindTriangle(const Int2& p0, 
         const Int2& p1, const Int2& p2)
     {
